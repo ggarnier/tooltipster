@@ -36,6 +36,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 			offsetY: 0,
 			onlyOne: true,
 			position: 'top',
+			positionFromIcon: true,
 			speed: 350,
 			timer: 0,
 			theme: '.tooltipster-default',
@@ -488,11 +489,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		positionTooltip: function() {
 
 			var $this = $(this.element);
+			var $origin = $this;
 			var object = this;
 
 			// detect if we're actually dealing with an icon or the origin itself
 			if ($this.data('tooltipsterIcon') !== undefined) {
 				$this = $this.data('tooltipsterIcon');
+				if (object.options.positionFromIcon) {
+					$origin = $this;
+				}
 			}
 
 			if (($this.data('tooltipster') !== undefined) && ($this.data('tooltipster') !== '')) {
@@ -503,12 +508,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 				// find variables to determine placement
 				var windowWidth = $(window).width();
-				var containerWidth = $this.outerWidth(false);
-				var containerHeight = $this.outerHeight(false);
+				var containerWidth = $origin.outerWidth(false);
+				var containerHeight = $origin.outerHeight(false);
 				var tooltipWidth = tooltipster.outerWidth(false);
 				var tooltipInnerWidth = tooltipster.innerWidth() + 1; // this +1 stops FireFox from sometimes forcing an additional text line
 				var tooltipHeight = tooltipster.outerHeight(false);
-				var offset = $this.offset();
+				var offset = $origin.offset();
 				var offsetTop = offset.top;
 				var offsetLeft = offset.left;
 				var resetPosition;
