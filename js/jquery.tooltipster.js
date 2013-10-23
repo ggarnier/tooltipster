@@ -904,7 +904,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 		}
 	};
 
-	$.fn[pluginName] = function (options) {
+	$.fn[pluginName] = function (options, params) {
 		// better API name spacing by glebtv
 		if (typeof options === 'string') {
 			var $t = this;
@@ -957,7 +957,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 						break;
 
 					case 'reposition':
-						$(this).data('plugin_tooltipster').positionTooltip();
+						var plugin = $(this).data('plugin_tooltipster');
+						if (params) {
+							plugin.options = $.extend({}, plugin.options, params);
+						}
+						plugin.positionTooltip();
 						break;
 				}
 			});
